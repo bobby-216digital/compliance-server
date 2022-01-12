@@ -6,6 +6,7 @@ const fetch = require('node-fetch');
 const lighthouse = require('lighthouse');
 const chromeLauncher = require('chrome-launcher');
 const app = express()
+const chromium = require('chromium');
 const port = process.env.PORT || 3000
 const waveURL = 'https://wave.webaim.org/api/request?key=14PTpkpK1992&reporttype=4&url='
 
@@ -18,7 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 async function lighthouseScan (url) {
-    const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
+    const chrome = await chromeLauncher.launch({chromeFlags: ['--headless'], chromePath: chromium.path });
     const options = {logLevel: 'error', output: 'json', onlyCategories: ['accessibility'], onlyAudits: ['accessibility'], port: chrome.port};
     const runnerResult = await lighthouse(url, options);
 
