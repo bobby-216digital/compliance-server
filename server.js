@@ -6,7 +6,7 @@ const fetch = require('node-fetch');
 const lighthouse = require('lighthouse');
 const chromeLauncher = require('chrome-launcher');
 const app = express()
-const port = 3000
+const port = 80
 const waveURL = 'https://wave.webaim.org/api/request?key=14PTpkpK1992&reporttype=4&url='
 
 app.use(fileUpload({
