@@ -44,6 +44,8 @@ async function lighthouseScan (url) {
       }`
 
       doFetch(query);
+
+      console.log((runnerResult.lhr.categories.accessibility.score * 100));
   
     await chrome.kill();
 }
