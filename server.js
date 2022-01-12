@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 async function lighthouseScan (url) {
     const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
-    const options = {logLevel: 'info', output: 'json', onlyCategories: ['accessibility'], onlyAudits: ['accessibility'], port: chrome.port};
+    const options = {logLevel: 'error', output: 'json', onlyCategories: ['accessibility'], onlyAudits: ['accessibility'], port: chrome.port};
     const runnerResult = await lighthouse(url, options);
 
     let date = Date.now();
