@@ -330,8 +330,7 @@ function doFetch (query, res) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Access-Control-Allow-Origin':  'http://localhost:3000'
+          'Accept': 'application/json'
         },
         body: JSON.stringify({
           query
@@ -340,6 +339,7 @@ function doFetch (query, res) {
         .then(r => r.json())
         .then(data => {
             if (res) {
+                res.set('Access-Control-Allow-Origin',  'http://localhost:3000')
                 res.send(data)
             }
            
