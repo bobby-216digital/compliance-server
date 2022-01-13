@@ -130,10 +130,10 @@ app.get('/site/:slug', function (req, res) {
           }
           sortsite {
             date
-            guideline
             issues {
               count
               priority
+              guideline
             }
           }
           wave {
