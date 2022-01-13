@@ -129,6 +129,7 @@ app.get('/site/:slug', function (req, res) {
             score
           }
           sortsite {
+            date
             issues {
               count
               priority
