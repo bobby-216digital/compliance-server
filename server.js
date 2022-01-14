@@ -229,6 +229,8 @@ app.post('/auth', function(req, res) {
   
   let pass = "216Digital1!"
   res.set('Access-Control-Allow-Origin',  'http://localhost:3000')
+
+  console.log(req.body)
  
   if (req.body.key == pass) {
     res.status(200)
@@ -237,8 +239,6 @@ app.post('/auth', function(req, res) {
     res.status(403)
     res.send("Incorrect admin password")
   }
-  
-  doFetch(query, res);
 })
 
 //add a scan
