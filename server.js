@@ -230,9 +230,9 @@ app.post('/auth', function(req, res) {
   let pass = "216Digital1!"
   res.set('Access-Control-Allow-Origin',  'http://localhost:3000')
 
-  console.log(req.body)
+  console.log(req)
  
-  if (req.body.key == pass) {
+  if (req.body == pass) {
     res.status(200)
     res.send("Authed")
   } else {
