@@ -125,10 +125,10 @@ app.get('/site/:slug', function (req, res) {
           slug
           url
           wcag
-          lighthouse(order: {desc: date}, first: 1) {
+          lighthouse {
             score
           }
-          sortsite(order: {desc: date}, first: 1) {
+          sortsite {
             date
             issues {
               count
@@ -136,7 +136,7 @@ app.get('/site/:slug', function (req, res) {
               guideline
             }
           }
-          wave(order: {desc: date}, first: 1) {
+          wave {
             issues {
               count
               description
