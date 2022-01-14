@@ -235,6 +235,9 @@ app.post('/auth', function(req, res) {
   res.setHeader('Access-Control-Allow-Credentials', true);
 
 
+  if ('OPTIONS' == req.method) {
+      return res.sendStatus(200);
+  } else {
     if (req.body.key == pass) {
       res.status(200)
       res.send("Auth")
@@ -242,6 +245,7 @@ app.post('/auth', function(req, res) {
       res.status(403)
       res.send("No Auth")
     }
+  }
 
 
 })
