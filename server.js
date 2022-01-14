@@ -160,7 +160,48 @@ app.get('/site/:slug', function (req, res) {
       }
     `
 
-    doFetch(query, res)
+    fetch('https://patient-hill.us-west-2.aws.cloud.dgraph.io/graphql', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          query
+        })
+      })
+        .then(r => r.json())
+        .then(data => {
+          let obj = data.data.querySite;
+
+          obj.history = [];
+
+          obj.sortsite.map((x, i) => {
+            let history = {
+              date: x.date
+            }
+            let scores = [0, 0, 0, obj[i].wave.issues.length, obj[i].lighthouse.score]
+
+            x.issues.map((y) => {
+              if (y.guidelines.includes(" A ")) {
+                scores[0]++
+              }
+              if (y.guidelines.includes(" AA ")) {
+                scores[1]++
+              }
+              if (y.guidelines.includes(" AAA ")) {
+                scores[2]++
+              }
+            })
+            history.scores = scores
+            obj.history.push(history)
+          })
+           
+          res.send(obj)
+        })
+        .catch(error => {
+            console.log(error)
+        })
 })
 
 //get a list of sites that have outstanding scans
