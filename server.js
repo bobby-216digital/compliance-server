@@ -213,6 +213,38 @@ app.get('/sortsite', function (req, res) {
         })
 })
 
+//get list of sites
+app.get('/sites', function (req, res) {
+  const query = `
+  query MyQuery {
+      querySite {
+        freq
+        url
+        slug
+      }
+    }
+  `
+
+  fetch('https://patient-hill.us-west-2.aws.cloud.dgraph.io/graphql', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({
+        query
+      })
+    })
+      .then(r => r.json())
+      .then(data => {
+          res.send(data)
+      })
+      .catch(error => {
+          console.log(error)
+      })
+})
+
+
 //onboard a site
 
 app.post('/new', function(req, res) {
