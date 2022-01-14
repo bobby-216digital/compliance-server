@@ -17,19 +17,6 @@ app.use(fileUpload({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.use(function(req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  // handle OPTIONS method
-  if ('OPTIONS' == req.method) {
-      return res.status(200);
-  } else {
-      next();
-  }
-});
-
 async function lighthouseScan (url) {
     const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
     const options = {logLevel: 'info', output: 'json', onlyCategories: ['accessibility'], onlyAudits: ['accessibility'], port: chrome.port};
@@ -242,6 +229,11 @@ app.post('/auth', function(req, res) {
 
   console.log(req.body)
 
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+
 
     if (req.body.key == pass) {
       res.status(200)
@@ -369,6 +361,10 @@ function doFetch (query, res) {
         .then(r => r.json())
         .then(data => {
             if (res) {
+              res.setHeader('Access-Control-Allow-Origin', '*');
+              res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+              res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+              res.setHeader('Access-Control-Allow-Credentials', true);
                 res.send(data)
             }
            
