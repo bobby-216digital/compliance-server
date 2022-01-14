@@ -145,7 +145,6 @@ app.get('/site/:slug', function (req, res) {
             date
             issues {
               count
-              priority
               guideline
             }
           }
@@ -308,31 +307,11 @@ app.post('/scan', function(req, res) {
 
             let scanDate = Date.now();
 
-            let query = `mutation NewSortsiteScan {
-                addSortsiteScan(
-                    input: 
-                    [
-                    {
-                        date: "` + scanDate + `"
-                        site: {
-                        url: "` + req.body.site + `"
-                        }
-                    }
-                    ]
-                ) {
-                    numUids
-                    sortsiteScan {
-                    site {
-                        url
-                    }
-                    date
-                    }
-                }
-                }`
-
-            doFetch(query);
-
-            let internalIssueQuery = ``;
+            let obj = {
+              a: {},
+              aa: {},
+              aaa: {}
+            };
 
             for(let i = 0; i < scanJson.length; i++) {
 
@@ -345,35 +324,60 @@ app.post('/scan', function(req, res) {
                     cleanedLineArray = lineArray.join(', ');
                     cleanedLineArray = cleanedLineArray.substring(0, cleanedLineArray.length - 2)
 
-                    internalIssueQuery += `
-                        addSortsiteIssue(
-                            input:
-                            [
-                                {
-                                guideline: "` + scanJson[i]["Guidelines"] + `"
-                                priority: ` + scanJson[i]["Priority"] + `
-                                count: ` + scanJson[i]["Count"] + `
-                                url: "` + scanJson[i]["URL"] + `"
-                                line: [` + cleanedLineArray + `]
-                                scan: {
-                                    date: "` + scanDate + `"
-                                }
-                                }
-                            ]
-                        ) {
-                            numUids
-                        }
-                    `
+                    let level;
+                    if (scanJson[i]["Guidelines"].includes(" A ")) {
+                      level = "a"
+                    } else if (scanJson[i]["Guidelines"].includes(" AA ")) {
+                      level = "aa"
+                    } else (
+                      level = "aaa"
+                    )
+
+                    if (!obj[level][scanJson[i]["Guidelines"]]) {
+                      obj[level][scanJson[i]["Guidelines"]] = [];
+                    }
+
+                    obj[level][scanJson[i]["Guidelines"]].push(
+                      {
+                        count: scanJson[i]["Count"],
+                        url: scanJson[i]["URL"],
+                        line: lineArray
+                      }
+                    )
+
+                    
+
+
                 }
 
             }
-            let issueQuery = `mutation NewSortSiteIssues {
-                ` + internalIssueQuery + `
-            }`;
-            
-            doFetch(issueQuery);
 
-            res.send("Complete.")
+            let encoded = encodeURIComponent(JSON.stringify(obj));
+
+            let query = `mutation NewSortsiteScan {
+              addSortsiteScan(
+                  input: 
+                  [
+                  {
+                      date: "` + scanDate + `"
+                      issues: "` + encoded + `"
+                      site: {
+                      url: "` + req.body.site + `"
+                      }
+                  }
+                  ]
+              ) {
+                  numUids
+                  sortsiteScan {
+                  site {
+                      url
+                  }
+                  date
+                  }
+              }
+              }`
+
+          doFetch(query, res)
         }
 
         waveScan(req.body.site);
