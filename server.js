@@ -231,7 +231,7 @@ app.post('/auth', function(req, res) {
 
   console.log(req.body)
 
-  res.set('Access-Control-Allow-Origin',  'http://localhost:3000')
+  res.set('Access-Control-Allow-Origin',  "*")
  
   if (req.body.key == pass) {
     res.status(200)
