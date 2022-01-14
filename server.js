@@ -225,19 +225,22 @@ app.post('/new', function(req, res) {
 })
 
 app.post('/auth', function(req, res) {
-  //construct the gql query
-  
   let pass = "216Digital1!"
 
   console.log(req.body)
 
   res.set('Access-Control-Allow-Origin',  'http://localhost:3000')
- 
-  if (req.body.key == pass) {
-    res.send("Authed")
+
+  if ('OPTIONS' == req.method) {
+      return res.status(200);
   } else {
-    res.send("Incorrect admin password")
+    if (req.body.key == pass) {
+      res.status(200)
+    } else {
+      res.status(403)
+    }
   }
+
 })
 
 //add a scan
