@@ -237,8 +237,10 @@ app.post('/auth', function(req, res) {
 
     if (req.body.key == pass) {
       res.status(200)
+      res.send("Auth")
     } else {
       res.status(403)
+      res.send("No Auth")
     }
 
 
