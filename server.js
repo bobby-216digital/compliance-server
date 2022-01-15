@@ -143,10 +143,7 @@ app.get('/site/:slug', function (req, res) {
           }
           sortsite {
             date
-            issues {
-              count
-              guideline
-            }
+            issues
           }
           wave {
             issues {
