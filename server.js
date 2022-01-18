@@ -330,11 +330,11 @@ app.post('/scan', function(req, res) {
                       level = "aaa"
                     )
 
-                    if (!obj[level][scanJson[i]["Guidelines"]]) {
-                      obj[level][scanJson[i]["Guidelines"]] = [];
+                    if (!obj[level][scanJson[i]["Description"]]) {
+                      obj[level][scanJson[i]["Description"]] = [];
                     }
 
-                    obj[level][scanJson[i]["Guidelines"]].push(
+                    obj[level][scanJson[i]["Description"]].push(
                       {
                         count: scanJson[i]["Count"],
                         url: scanJson[i]["URL"],
