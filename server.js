@@ -252,6 +252,8 @@ app.post('/new', function(req, res) {
                 freq: ` + req.body.freq + `,
                 slug: "` + req.body.slug + `",
                 contacts: "` + req.body.contacts + `",
+                thresholda: "` + req.body.thresholda + `",
+                thresholdaa: "` + req.body.thresholdaa + `",
                 sortsite: []
               }
             ]) {
