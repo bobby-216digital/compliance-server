@@ -138,6 +138,9 @@ app.get('/site/:slug', function (req, res) {
           slug
           url
           wcag
+          thresholda
+          thresholdaa
+          passcode
           lighthouse {
             score
           }
