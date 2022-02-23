@@ -403,12 +403,12 @@ app.get('/mailtest', function(req, res) {
 function checkThresholds(url, scan, res) {
 
   const message = {
-    from_email: "info@a11yradar.com",
+    from_email: "hi@a11yradar.com",
     subject: "URGENT: Action required",
     text: "<h2>Hey!</h2><p>You got too many issues!</p>",
     to: [
       {
-        email: "bobby@216digital.com",
+        email: "info@a11yradar.com",
         type: "to"
       }
     ]
