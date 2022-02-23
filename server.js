@@ -8,6 +8,7 @@ const chromeLauncher = require('chrome-launcher');
 const app = express()
 const port = process.env.PORT || 3000
 const waveURL = 'https://wave.webaim.org/api/request?key=14PTpkpK1992&reporttype=4&url='
+const mailchimpTx = require("mailchimp_transactional")("jpuLHp55BIqZl1mhARF3EA");
 
 app.use(fileUpload({
     useTempFiles : true,
@@ -400,7 +401,6 @@ app.get('/mailtest', function(req, res) {
 })
 
 function checkThresholds(url, scan, res) {
-  const mailchimpTx = require("mailchimp_transactional")("jpuLHp55BIqZl1mhARF3EA");
 
   async function run() {
     const response = await mailchimpTx.users.ping();
