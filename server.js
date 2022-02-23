@@ -385,13 +385,30 @@ app.post('/scan', function(req, res) {
 
         waveScan(req.body.site);
 
-        lighthouseScan(req.body.site)
+        lighthouseScan(req.body.site);
+
+        checkThresholds(req.body.site, obj)
     } else {
         res.status(400);
         res.send("Bad Request")
     }
     
 })
+
+app.get('/mailtest', function(req, res) {
+  checkThresholds();
+})
+
+function checkThresholds(url, scan, res) {
+  const mailchimpTx = require("mailchimp_transactional")("jpuLHp55BIqZl1mhARF3EA");
+
+  async function run() {
+    const response = await mailchimpTx.users.ping();
+    console.log(response);
+  }
+
+  run();
+}
 
 //interact with GQL
 

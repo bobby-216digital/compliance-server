@@ -9,6 +9,7 @@
   "keywords": [],
   "author": "",
   "dependencies": {
+    "@mailchimp/mailchimp_transactional": "^1.0.47",
     "body-parser": "^1.19.1",
     "chrome-launcher": "^0.15.0",
     "chromium": "^3.0.3",
