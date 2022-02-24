@@ -408,7 +408,7 @@ function checkThresholds(url, scan, res) {
     text: "<h2>Hey!</h2><p>You got too many issues!</p>",
     to: [
       {
-        email: "info@a11yradar.com",
+        email: "bobby@216digital.com",
         type: "to"
       }
     ]
