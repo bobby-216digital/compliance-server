@@ -402,24 +402,31 @@ app.get('/mailtest', function(req, res) {
 
 function checkThresholds(url, scan, res) {
 
-  const message = {
-    from_email: "hi@a11yradar.com",
-    subject: "URGENT: Action required",
-    text: "<h2>Hey!</h2><p>You got too many issues!</p>",
-    to: [
-      {
-        email: "bobby@216digital.com",
-        type: "to"
-      }
-    ]
-  };
-  
-  async function run() {
-    const response = await mailchimp.messages.send({
-      message
+  const run = async () => {
+    const response = await mailchimp.messages.sendTemplate({
+      template_name: "a11y_radar",
+      template_content: [{
+        "TITLE": "Urgent Attention Required",
+        "TEXTONE": "The WCAG 2.1 AA error count on url has surpassed your risk tolerance threshold.",
+        "TEXTTWO": "Remember, keeping your error counts below your risk thresholds greatly reduces the threat of a frivolous ADA non-compliance lawsuit being filed against you. Our in-house accessibility experts are on deck to fix these issues as soon as possible, or advise your internal development resources on what it will take to get back in bounds.",
+        "BUTTONTEXT": "Get back on track",
+        "LEVELA": "17",
+        "LEVELAA": "4",
+        "LEVELAAA": "8"
+      }],
+      message: {
+        subject: "a11y Radar: Urgent Attention Required",
+        from_name: "a11y Radar",
+        from_email: "info@a11yradar.com",
+        to: {
+          email: "bobby@216digital.com",
+          type: "to"
+        }
+      },
     });
     console.log(response);
-  }
+  };
+  
   run();
 }
 
