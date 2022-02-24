@@ -404,7 +404,7 @@ function checkThresholds(url, scan, res) {
 
   const run = async () => {
     const response = await mailchimp.messages.sendTemplate({
-      template_name: "a11y_radar",
+      template_name: "a11y-radar",
       template_content: [{
         "TITLE": "Urgent Attention Required",
         "TEXTONE": "The WCAG 2.1 AA error count on url has surpassed your risk tolerance threshold.",
