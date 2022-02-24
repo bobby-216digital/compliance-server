@@ -384,11 +384,11 @@ app.post('/scan', function(req, res) {
           doFetch(query, res)
         }
 
-        waveScan(req.body.site);
+        //waveScan(req.body.site);
 
-        lighthouseScan(req.body.site);
+        //lighthouseScan(req.body.site);
 
-        checkThresholds(req.body.site, obj)
+        //checkThresholds(req.body.site, obj)
     } else {
         res.status(400);
         res.send("Bad Request")
@@ -425,7 +425,7 @@ function checkThresholds(url, scan, res) {
           },
           {
             "name": "TEXTTWO",
-            "content": "TRemember, keeping your error counts below your risk thresholds greatly reduces the threat of a frivolous ADA non-compliance lawsuit being filed against you. Our in-house accessibility experts are on deck to fix these issues as soon as possible, or advise your internal development resources on what it will take to get back in bounds."
+            "content": "Remember, keeping your error counts below your risk thresholds greatly reduces the threat of a frivolous ADA non-compliance lawsuit being filed against you. Our in-house accessibility experts are on deck to fix these issues as soon as possible, or advise your internal development resources on what it will take to get back in bounds."
           },
           {
             "name": "BUTTONTEXT",
