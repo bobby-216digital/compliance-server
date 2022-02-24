@@ -405,6 +405,7 @@ function checkThresholds(url, scan, res) {
   const run = async () => {
     const response = await mailchimp.messages.sendTemplate({
       template_name: "a11y-radar",
+      template_content: [{}],
       merge_vars: [
         {
           "name": "TITLE",
