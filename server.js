@@ -405,15 +405,36 @@ function checkThresholds(url, scan, res) {
   const run = async () => {
     const response = await mailchimp.messages.sendTemplate({
       template_name: "a11y-radar",
-      template_content: [{
-        "TITLE": "Urgent Attention Required",
-        "TEXTONE": "The WCAG 2.1 AA error count on url has surpassed your risk tolerance threshold.",
-        "TEXTTWO": "Remember, keeping your error counts below your risk thresholds greatly reduces the threat of a frivolous ADA non-compliance lawsuit being filed against you. Our in-house accessibility experts are on deck to fix these issues as soon as possible, or advise your internal development resources on what it will take to get back in bounds.",
-        "BUTTONTEXT": "Get back on track",
-        "LEVELA": "17",
-        "LEVELAA": "4",
-        "LEVELAAA": "8"
-      }],
+      merge_vars: [
+        {
+          "name": "TITLE",
+          "content": "Urgent Attention Required"
+        },
+        {
+          "name": "TEXTONE",
+          "content": "The WCAG 2.1 AA error count on url has surpassed your risk tolerance threshold."
+        },
+        {
+          "name": "TEXTTWO",
+          "content": "TRemember, keeping your error counts below your risk thresholds greatly reduces the threat of a frivolous ADA non-compliance lawsuit being filed against you. Our in-house accessibility experts are on deck to fix these issues as soon as possible, or advise your internal development resources on what it will take to get back in bounds."
+        },
+        {
+          "name": "BUTTONTEXT",
+          "content": "Get back on track"
+        },
+        {
+          "name": "LEVELA",
+          "content": "17"
+        },
+        {
+          "name": "LEVELAA",
+          "content": "4"
+        },
+        {
+          "name": "LEVELAAA",
+          "content": "8"
+        }
+      ],
       message: {
         subject: "a11y Radar: Urgent Attention Required",
         from_name: "a11y Radar",
