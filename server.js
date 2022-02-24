@@ -418,10 +418,10 @@ function checkThresholds(url, scan, res) {
         subject: "a11y Radar: Urgent Attention Required",
         from_name: "a11y Radar",
         from_email: "info@a11yradar.com",
-        to: {
+        to: [{
           email: "bobby@216digital.com",
           type: "to"
-        }
+        }]
       },
     });
     console.log(response);
