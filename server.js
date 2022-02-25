@@ -479,7 +479,7 @@ function doFetch (query, res, check) {
               res.send(data)
             }
             if (check) {
-              console.log(data.sortsiteScan)
+              console.log(data.data.addSortsiteScan.sortsiteScan)
             }
            
         })
