@@ -491,6 +491,7 @@ function doFetch (query, res, check, obj) {
               res.send(data)
             }
             if (check) {
+              let siteData = data.data.addSortsiteScan.sortsiteScan[0].site;
               checkThresholds(siteData, [Object.keys(obj['a']).length, Object.keys(obj['aa']).length, Object.keys(obj['aaa']).length])
             }
            
