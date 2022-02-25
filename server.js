@@ -421,6 +421,14 @@ function checkThresholds(siteData, errorCounts) {
     }
   }
 
+  let contacts = [];
+  siteData.contacts[0].split(", ").map((x) => {
+    contacts.push({
+      email: x,
+      type: "to"
+    })
+  })
+
   const run = async () => {
     const response = await mailchimp.messages.sendTemplate({
       template_name: "a11y-radar",
@@ -429,10 +437,7 @@ function checkThresholds(siteData, errorCounts) {
         subject: "a11y.Radar: Urgent Attention Required",
         from_name: "a11y.Radar",
         from_email: "info@a11yradar.com",
-        to: [{
-          email: "bobby@216digital.com",
-          type: "to"
-        }],
+        to: contacts,
         global_merge_vars: [
           {
             "name": "TITLE",
