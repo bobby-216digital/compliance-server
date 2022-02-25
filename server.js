@@ -377,7 +377,7 @@ app.post('/scan', function(req, res) {
                       url
                       thresholda
                       thresholdaa
-                      thresholdaaa
+                      thresholdaa
                   }
                   date
                   }
