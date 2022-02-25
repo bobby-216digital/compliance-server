@@ -479,7 +479,7 @@ function doFetch (query, res, check, obj) {
             }
             if (check) {
               console.log(data.data.addSortsiteScan.sortsiteScan)
-              console.log(Object.keys(obj[a].length))
+              console.log(Object.keys(obj[a]).length)
             }
            
         })
