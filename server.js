@@ -440,7 +440,7 @@ function checkThresholds(siteData, errorCounts) {
       template_name: "a11y-radar",
       template_content: [{}],
       message: {
-        subject: "a11y.Radar: Urgent Attention Required",
+        subject: "a11y.Radar: " + text.title,
         from_name: "a11y.Radar",
         from_email: "info@a11yradar.com",
         to: contacts,
