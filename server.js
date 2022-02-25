@@ -422,8 +422,8 @@ function checkThresholds(siteData, errorCounts) {
       textone: "The WCAG 2.1 AA error count on " + siteData.url + " has surpassed your risk tolerance threshold.",
       texttwo: "Remember, keeping your error counts below your risk thresholds greatly reduces the threat of a frivolous ADA non-compliance lawsuit being filed against you. Our in-house accessibility experts are on deck to fix these issues as soon as possible, or advise your internal development resources on what it will take to get back in bounds.",
       buttontext: "Get back on track",
-      errora: "⚠️",
-      erroraa: "⚠️"
+      errora: (siteData.thresholda <= errorCounts[0] ? "⚠️" : ""),
+      erroraa: (siteData.thresholdaa <= errorCounts[1] ? "⚠️" : "")
     }
   }
 
