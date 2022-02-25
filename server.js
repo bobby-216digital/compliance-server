@@ -383,7 +383,7 @@ app.post('/scan', function(req, res) {
               }
               }`
 
-          doFetch(query, res, true)
+          doFetch(query, res, true, obj)
         }
 
         //waveScan(req.body.site);
@@ -456,7 +456,7 @@ function checkThresholds(url, scan, res) {
 
 //interact with GQL
 
-function doFetch (query, res, check) {
+function doFetch (query, res, check, obj) {
      //perform the HTTP request
      fetch('https://patient-hill.us-west-2.aws.cloud.dgraph.io/graphql', {
         method: 'POST',
@@ -479,6 +479,7 @@ function doFetch (query, res, check) {
             }
             if (check) {
               console.log(data.data.addSortsiteScan.sortsiteScan)
+              console.log(obj)
             }
            
         })
