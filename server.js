@@ -402,7 +402,22 @@ app.get('/mailtest', function(req, res) {
   checkThresholds();
 })
 
-function checkThresholds(url, scan, res) {
+function checkThresholds(siteData, errorCounts) {
+  let text = {
+    title: "Urgent Attention Required",
+    textone: "The WCAG 2.1 AA error count on " + siteData.url + " has surpassed your risk tolerance threshold.",
+    texttwo: "Remember, keeping your error counts below your risk thresholds greatly reduces the threat of a frivolous ADA non-compliance lawsuit being filed against you. Our in-house accessibility experts are on deck to fix these issues as soon as possible, or advise your internal development resources on what it will take to get back in bounds.",
+    buttontext: "Get back on track"
+  }
+
+  if (siteData.thresholda > errorCounts[0] || siteData.thresholdaa > errorCounts[1]) {
+    text = {
+      title: "Congratulations!",
+      textone: "The WCAG 2.1 AA error count on " + siteData.url + " is below your risk tolerance threshold.",
+      texttwo: "Remember, keeping your error counts below your risk thresholds greatly reduces the threat of a frivolous ADA non-compliance lawsuit being filed against you. Our in-house accessibility experts are on deck to fix any remaining issues as soon as possible, or advise your internal development resources on what it will take to get back in bounds.",
+      buttontext: "Get ahead of the game"
+    }
+  }
 
   const run = async () => {
     const response = await mailchimp.messages.sendTemplate({
@@ -419,39 +434,37 @@ function checkThresholds(url, scan, res) {
         global_merge_vars: [
           {
             "name": "TITLE",
-            "content": "Urgent Attention Required"
+            "content": text.title
           },
           {
             "name": "TEXTONE",
-            "content": "The WCAG 2.1 AA error count on url has surpassed your risk tolerance threshold."
+            "content": text.textone
           },
           {
             "name": "TEXTTWO",
-            "content": "Remember, keeping your error counts below your risk thresholds greatly reduces the threat of a frivolous ADA non-compliance lawsuit being filed against you. Our in-house accessibility experts are on deck to fix these issues as soon as possible, or advise your internal development resources on what it will take to get back in bounds."
+            "content": text.texttwo
           },
           {
             "name": "BUTTONTEXT",
-            "content": "Get back on track"
+            "content": text.buttontext
           },
           {
             "name": "LEVELA",
-            "content": "17"
+            "content": errorCounts[0]
           },
           {
             "name": "LEVELAA",
-            "content": "4"
+            "content": errorCounts[1]
           },
           {
             "name": "LEVELAAA",
-            "content": "8"
+            "content": errorCounts[2]
           }
         ],
       },
     });
     console.log(response);
   };
-  
-  run();
 }
 
 //interact with GQL
@@ -478,8 +491,7 @@ function doFetch (query, res, check, obj) {
               res.send(data)
             }
             if (check) {
-              console.log(data.data.addSortsiteScan.sortsiteScan)
-              console.log(Object.keys(obj['a']).length, Object.keys(obj['aa']).length)
+              checkThresholds(siteData, [Object.keys(obj['a']).length, Object.keys(obj['aa']).length, Object.keys(obj['aaa']).length])
             }
            
         })
