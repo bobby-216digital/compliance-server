@@ -465,6 +465,8 @@ function checkThresholds(siteData, errorCounts) {
     });
     console.log(response);
   };
+
+  run();
 }
 
 //interact with GQL
