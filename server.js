@@ -381,7 +381,7 @@ app.post('/scan', function(req, res) {
               }
               }`
 
-          doFetch(query, res)
+          doFetch(query, res, true)
         }
 
         //waveScan(req.body.site);
@@ -407,8 +407,8 @@ function checkThresholds(url, scan, res) {
       template_name: "a11y-radar",
       template_content: [{}],
       message: {
-        subject: "a11y Radar: Urgent Attention Required",
-        from_name: "a11y Radar",
+        subject: "a11y.Radar: Urgent Attention Required",
+        from_name: "a11y.Radar",
         from_email: "info@a11yradar.com",
         to: [{
           email: "bobby@216digital.com",
@@ -454,7 +454,7 @@ function checkThresholds(url, scan, res) {
 
 //interact with GQL
 
-function doFetch (query, res) {
+function doFetch (query, res, check) {
      //perform the HTTP request
      fetch('https://patient-hill.us-west-2.aws.cloud.dgraph.io/graphql', {
         method: 'POST',
@@ -473,7 +473,10 @@ function doFetch (query, res) {
               res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
               res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
               res.setHeader('Access-Control-Allow-Credentials', true);
-                res.send(data)
+              res.send(data)
+            }
+            if (check) {
+              console.log(data)
             }
            
         })
