@@ -9,6 +9,7 @@ const app = express()
 const port = process.env.PORT || 3000
 const waveURL = 'https://wave.webaim.org/api/request?key=14PTpkpK1992&reporttype=4&url='
 const mailchimp = require('@mailchimp/mailchimp_transactional')("jpuLHp55BIqZl1mhARF3EA");
+const frontURL = "https://a11y-compliance-frontend.herokuapp.com/";
 
 app.use(fileUpload({
     useTempFiles : true,
@@ -376,6 +377,7 @@ app.post('/scan', function(req, res) {
                   sortsiteScan {
                   site {
                       url
+                      slug
                       thresholda
                       thresholdaa
                       contacts
@@ -409,7 +411,9 @@ function checkThresholds(siteData, errorCounts) {
     title: "Congratulations!",
     textone: "The WCAG 2.1 AA error count on " + siteData.url + " is below your risk tolerance threshold.",
     texttwo: "Remember, keeping your error counts below your risk thresholds greatly reduces the threat of a frivolous ADA non-compliance lawsuit being filed against you. Our in-house accessibility experts are on deck to fix any remaining issues as soon as possible, or advise your internal development resources on what it will take to get back in bounds.",
-    buttontext: "Get ahead of the game"
+    buttontext: "Get ahead of the game",
+    errora: "",
+    erroraa: ""
   }
 
   if (siteData.thresholda <= errorCounts[0] || siteData.thresholdaa <= errorCounts[1]) {
@@ -417,7 +421,9 @@ function checkThresholds(siteData, errorCounts) {
       title: "Urgent Attention Required",
       textone: "The WCAG 2.1 AA error count on " + siteData.url + " has surpassed your risk tolerance threshold.",
       texttwo: "Remember, keeping your error counts below your risk thresholds greatly reduces the threat of a frivolous ADA non-compliance lawsuit being filed against you. Our in-house accessibility experts are on deck to fix these issues as soon as possible, or advise your internal development resources on what it will take to get back in bounds.",
-      buttontext: "Get back on track"
+      buttontext: "Get back on track",
+      errora: "⚠️",
+      erroraa: "⚠️"
     }
   }
 
@@ -466,6 +472,18 @@ function checkThresholds(siteData, errorCounts) {
           {
             "name": "LEVELAAA",
             "content": errorCounts[2]
+          },
+          {
+            "name": "ERRORA",
+            "content": text.errora
+          },
+          {
+            "name": "ERRORAA",
+            "content": text.erroraa
+          },
+          {
+            "name": "URL",
+            "content": frontURL + siteData.slug
           }
         ],
       },
