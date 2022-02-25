@@ -375,6 +375,9 @@ app.post('/scan', function(req, res) {
                   sortsiteScan {
                   site {
                       url
+                      thresholda
+                      thresholdaa
+                      thresholdaaa
                   }
                   date
                   }
@@ -476,7 +479,7 @@ function doFetch (query, res, check) {
               res.send(data)
             }
             if (check) {
-              console.log(data)
+              console.log(data.sortsiteScan)
             }
            
         })
