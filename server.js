@@ -9,7 +9,7 @@ const app = express()
 const port = process.env.PORT || 3000
 const waveURL = 'https://wave.webaim.org/api/request?key=14PTpkpK1992&reporttype=4&url='
 const mailchimp = require('@mailchimp/mailchimp_transactional')("jpuLHp55BIqZl1mhARF3EA");
-const frontURL = "https://a11y-compliance-frontend.herokuapp.com/";
+const frontURL = "https://a11yradar.com/";
 
 app.use(fileUpload({
     useTempFiles : true,
@@ -409,11 +409,22 @@ app.get('/mailtest', function(req, res) {
 function checkThresholds(siteData, errorCounts) {
   let text = {
     title: "Congratulations!",
-    textone: "The WCAG 2.1 AA error count on " + siteData.url + " is below your risk tolerance threshold.",
+    textone: "The WCAG 2.1 AA error count on " + siteData.url + " is below your risk tolerance threshold!",
     texttwo: "Remember, keeping your error counts below your risk thresholds greatly reduces the threat of a frivolous ADA non-compliance lawsuit being filed against you. Our in-house accessibility experts are on deck to fix any remaining issues as soon as possible, or advise your internal development resources on what it will take to get back in bounds.",
     buttontext: "Get ahead of the game",
     errora: "",
     erroraa: ""
+  }
+
+  if (siteData.thresholda - 3 <= errorCounts[0] || siteData.thresholdaa - 3 <= errorCounts[1]) {
+    text = {
+      title: "Attention Required",
+      textone: "The WCAG 2.1 AA error count on " + siteData.url + " is approaching your risk tolerance threshold.",
+      texttwo: "Remember, keeping your error counts below your risk thresholds greatly reduces the threat of a frivolous ADA non-compliance lawsuit being filed against you. Our in-house accessibility experts are on deck to fix these issues as soon as possible, or advise your internal development resources on what it will take to get back in bounds.",
+      buttontext: "Get back on track",
+      errora: (siteData.thresholda <= errorCounts[0] ? "⚠️" : ""),
+      erroraa: (siteData.thresholdaa <= errorCounts[1] ? "⚠️" : "")
+    }
   }
 
   if (siteData.thresholda <= errorCounts[0] || siteData.thresholdaa <= errorCounts[1]) {
