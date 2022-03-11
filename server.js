@@ -417,7 +417,7 @@ function onboard(slug, url, siteContacts) {
 
   const run = async () => {
     const response = await mailchimp.messages.sendTemplate({
-      template_name: "a11y-radar",
+      template_name: "a11y-radar-onboarding",
       template_content: [{}],
       message: {
         subject: "Welcome to a11y.Radar!",
