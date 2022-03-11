@@ -270,7 +270,7 @@ app.post('/new', function(req, res) {
             }
           }`
           
-    
+    onboard(req.body.slug, req.body.url, req.body.contacts)
     doFetch(query, res);
 })
 
@@ -405,6 +405,42 @@ app.post('/scan', function(req, res) {
 app.get('/mailtest', function(req, res) {
   checkThresholds();
 })
+
+function onboard(slug, url, siteContacts) {
+  let contacts = [];
+  siteContacts.split(", ").map((x) => {
+    contacts.push({
+      email: x,
+      type: "to"
+    })
+  })
+
+  const run = async () => {
+    const response = await mailchimp.messages.sendTemplate({
+      template_name: "a11y-radar",
+      template_content: [{}],
+      message: {
+        subject: "Welcome to a11.Radar!",
+        from_name: "a11y.Radar",
+        from_email: "info@a11yradar.com",
+        to: contacts,
+        global_merge_vars: [
+          {
+            "name": "DASH_URL",
+            "content": frontURL + slug
+          },
+          {
+            "name": "SITE_URL",
+            "content": url
+          }
+        ],
+      },
+    });
+    console.log(response);
+  };
+
+  run();
+}
 
 function checkThresholds(siteData, errorCounts) {
   let text = {
