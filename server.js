@@ -406,6 +406,10 @@ app.get('/mailtest', function(req, res) {
   checkThresholds();
 })
 
+app.post('/contact', function(req, res) {
+  console.log(req.body);
+})
+
 function onboard(slug, url, siteContacts) {
   let contacts = [];
   siteContacts.split(", ").map((x) => {
