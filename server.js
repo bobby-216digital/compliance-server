@@ -392,7 +392,7 @@ app.post('/scan', function(req, res) {
 
         waveScan(req.body.site);
 
-        lighthouseScan(req.body.site);
+        //lighthouseScan(req.body.site);
 
         //checkThresholds(req.body.site, obj)
     } else {
