@@ -420,7 +420,7 @@ function onboard(slug, url, siteContacts) {
       template_name: "a11y-radar",
       template_content: [{}],
       message: {
-        subject: "Welcome to a11.Radar!",
+        subject: "Welcome to a11y.Radar!",
         from_name: "a11y.Radar",
         from_email: "info@a11yradar.com",
         to: contacts,
