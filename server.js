@@ -407,7 +407,24 @@ app.get('/mailtest', function(req, res) {
 })
 
 app.post('/contact', function(req, res) {
-  console.log(req.body);
+  let contacts = [
+    {
+      email: "bobby@216digital.com",
+      type: "to"
+    }
+  ]
+  const run = async () => {
+    const response = await mailchimpClient.messages.send({ message: {
+      subject: "a11y.Radar Request",
+      from_name: "a11y.Radar",
+      from_email: "info@a11yradar.com",
+      to: contacts,
+      html: `Request from: ${req.body.url}<br/>Request type: ${req.body.type}<br/>Contact email: ${req.body.email}<br/>Notes: ${req.body.notes}`
+    } });
+    console.log(response);
+  };
+  
+  run();
   res.send(req.body)
 })
 
