@@ -414,7 +414,7 @@ app.post('/contact', function(req, res) {
     }
   ]
   const run = async () => {
-    const response = await mailchimpClient.messages.send({ message: {
+    const response = await mailchimp.messages.send({ message: {
       subject: "a11y.Radar Request",
       from_name: "a11y.Radar",
       from_email: "info@a11yradar.com",
