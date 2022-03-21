@@ -411,6 +411,14 @@ app.post('/contact', function(req, res) {
     {
       email: "bobby@216digital.com",
       type: "to"
+    },
+    {
+      email: "robby@216digital.com",
+      type: "to"
+    },
+    {
+      email: "gm@216digital.com",
+      type: "to"
     }
   ]
   const run = async () => {
