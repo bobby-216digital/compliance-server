@@ -7,7 +7,7 @@ const lighthouse = require('lighthouse');
 const chromeLauncher = require('chrome-launcher');
 const app = express()
 const port = process.env.PORT || 3000
-const waveURL = 'https://wave.webaim.org/api/request?key=14PTpkpK1992&reporttype=4&url='
+const waveURL = 'https://wave.webaim.org/api/request?key=14PTpkpK1992&reporttype=4&url=';
 const mailchimp = require('@mailchimp/mailchimp_transactional')("jpuLHp55BIqZl1mhARF3EA");
 const frontURL = "https://a11yradar.com/";
 
@@ -392,7 +392,7 @@ app.post('/scan', function(req, res) {
 
         waveScan(req.body.site);
 
-        //lighthouseScan(req.body.site);
+        lighthouseScan(req.body.site);
 
         //checkThresholds(req.body.site, obj)
     } else {
@@ -408,6 +408,7 @@ app.get('/mailtest', function(req, res) {
 
 app.post('/contact', function(req, res) {
   console.log(req.body);
+  res.send(req.body)
 })
 
 function onboard(slug, url, siteContacts) {
