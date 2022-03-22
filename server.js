@@ -35,7 +35,7 @@ app.use(function(req, res, next) {
 async function lighthouseScan (url) {
     const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
     const options = {logLevel: 'info', output: 'json', onlyCategories: ['accessibility'], onlyAudits: ['accessibility'], port: chrome.port};
-    const runnerResult = await lighthouse(url, options).then(() => {
+    const runnerResult = await lighthouse(url, options).then((x) => {
       let date = Date.now();
 
       let query = `mutation NewLighthouseScan {
@@ -43,7 +43,7 @@ async function lighthouseScan (url) {
             {
               site: {url: "` + url + `"},
               date: ` + date + `,
-              score: ` + (runnerResult.lhr.categories.accessibility.score * 100) +`
+              score: ` + (x.lhr.categories.accessibility.score * 100) +`
             }
           ]) {
             numUids
@@ -59,7 +59,7 @@ async function lighthouseScan (url) {
 
         doFetch(query);
 
-        console.log((runnerResult.lhr.categories.accessibility.score * 100));
+        console.log((x.lhr.categories.accessibility.score * 100));
     }
     )
     .catch((error) => {
