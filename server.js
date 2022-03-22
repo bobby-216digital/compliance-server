@@ -35,32 +35,38 @@ app.use(function(req, res, next) {
 async function lighthouseScan (url) {
     const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
     const options = {logLevel: 'info', output: 'json', onlyCategories: ['accessibility'], onlyAudits: ['accessibility'], port: chrome.port};
-    const runnerResult = await lighthouse(url, options);
+    const runnerResult = await lighthouse(url, options).then(() => {
+      let date = Date.now();
 
-    let date = Date.now();
-
-    let query = `mutation NewLighthouseScan {
-        addLighthouseScan(input: [
-          {
-            site: {url: "` + url + `"},
-            date: ` + date + `,
-            score: ` + (runnerResult.lhr.categories.accessibility.score * 100) +`
+      let query = `mutation NewLighthouseScan {
+          addLighthouseScan(input: [
+            {
+              site: {url: "` + url + `"},
+              date: ` + date + `,
+              score: ` + (runnerResult.lhr.categories.accessibility.score * 100) +`
+            }
+          ]) {
+            numUids
+            lighthouseScan {
+                site {
+                    url
+                }
+                date
+                score
+            }
           }
-        ]) {
-          numUids
-          lighthouseScan {
-              site {
-                  url
-              }
-              date
-              score
-          }
-        }
-      }`
+        }`
 
-      doFetch(query);
+        doFetch(query);
 
-      console.log((runnerResult.lhr.categories.accessibility.score * 100));
+        console.log((runnerResult.lhr.categories.accessibility.score * 100));
+    }
+    )
+    .catch((error) => {
+      console.log(error)
+    })
+
+    
   
     await chrome.kill();
 }
