@@ -59,7 +59,7 @@ async function lighthouseScan (url) {
 
         doFetch(query);
 
-        console.log((x.lhr.categories.accessibility.score * 100));
+        console.log((x.lhr.categories.accessibility));
     }
     )
     .catch((error) => {
