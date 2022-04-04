@@ -34,7 +34,7 @@ app.use(function(req, res, next) {
 
 async function lighthouseScan (url) {
     const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
-    const options = {logLevel: 'verbose', output: 'json', onlyCategories: ['accessibility'], onlyAudits: ['accessibility'], port: chrome.port};
+    const options = {logLevel: 'info', output: 'json', onlyCategories: ['accessibility'], onlyAudits: ['accessibility'], port: chrome.port};
     const runnerResult = await lighthouse(url, options).then((x) => {
       let date = Date.now();
 
