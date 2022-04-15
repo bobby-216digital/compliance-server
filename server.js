@@ -460,6 +460,8 @@ app.post('/newscan', function(req, res) {
     }
   }`
 
+  console.log(query);
+
   doFetch(query, res);
 })
 
