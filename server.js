@@ -367,15 +367,7 @@ app.post('/scan', function(req, res) {
 
             let encoded = encodeURIComponent(JSON.stringify(obj));
 
-            let query = `mutation MyMutation {
-              updateSite(input: {filter: {url: {allofterms: "` + req.body.site + `}}, set: {newscan: false}}) {
-                site {
-                  newscan
-                }
-              }
-            }
-            
-            mutation NewSortsiteScan {
+            let query = `mutation NewSortsiteScan {
               addSortsiteScan(
                   input: 
                   [
@@ -403,6 +395,16 @@ app.post('/scan', function(req, res) {
               }`
 
           doFetch(query, res, true, obj)
+
+          query = `mutation MyMutation {
+            updateSite(input: {filter: {url: {allofterms: "` + req.body.site + `}}, set: {newscan: false}}) {
+              site {
+                newscan
+              }
+            }
+          }`
+
+          doFetch(query, res)
         }
 
         waveScan(req.body.site);
