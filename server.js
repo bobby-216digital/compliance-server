@@ -396,15 +396,15 @@ app.post('/scan', function(req, res) {
 
           doFetch(query, res, true, obj)
 
-          query = `mutation MyMutation {
-            updateSite(input: {filter: {url: {allofterms: "` + req.body.site + `}}, set: {newscan: false}}) {
-              site {
-                newscan
-              }
-            }
-          }`
+          // query = `mutation MyMutation {
+          //   updateSite(input: {filter: {url: {allofterms: "` + req.body.site + `}}, set: {newscan: false}}) {
+          //     site {
+          //       newscan
+          //     }
+          //   }
+          // }`
 
-          doFetch(query, res)
+          // doFetch(query, res)
         }
 
         waveScan(req.body.site);
