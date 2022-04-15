@@ -453,7 +453,7 @@ app.post('/contact', function(req, res) {
 
 app.post('/newscan', function(req, res) {
   let query = `mutation MyMutation {
-    updateSite(input: {filter: {url: {allofterms: "` + req.body.url + `}}, set: {newscan: true}}) {
+    updateSite(input: {filter: {url: {allofterms: "` + req.body.url + `"}}, set: {newscan: true}}) {
       site {
         newscan
       }
