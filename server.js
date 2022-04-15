@@ -184,6 +184,7 @@ app.get('/sortsite', function (req, res) {
           sortsite(order: {desc: date}, first: 1) {
             date
           }
+          newscan
         }
       }
     `
@@ -206,7 +207,7 @@ app.get('/sortsite', function (req, res) {
             };
             result.map((x) => {
                 if (x.sortsite[0]) {
-                    if (x.sortsite[0].date < (now - (x.freq * day))) {
+                    if (x.sortsite[0].date < (now - (x.freq * day)) || x.newscan == true) {
                         returnObj.urls.push(x.url);
                     } 
                 } else {
@@ -366,7 +367,15 @@ app.post('/scan', function(req, res) {
 
             let encoded = encodeURIComponent(JSON.stringify(obj));
 
-            let query = `mutation NewSortsiteScan {
+            let query = `mutation MyMutation {
+              updateSite(input: {filter: {url: {allofterms: "` + req.body.site + `}}, set: {newscan: false}}) {
+                site {
+                  newscan
+                }
+              }
+            }
+            
+            mutation NewSortsiteScan {
               addSortsiteScan(
                   input: 
                   [
@@ -440,6 +449,18 @@ app.post('/contact', function(req, res) {
   
   run();
   res.send(req.body)
+})
+
+app.post('/newscan', function(req, res) {
+  let query = `mutation MyMutation {
+    updateSite(input: {filter: {url: {allofterms: "` + req.body.site + `}}, set: {newscan: true}}) {
+      site {
+        newscan
+      }
+    }
+  }`
+
+  doFetch(query, res);
 })
 
 function onboard(slug, url, siteContacts) {
