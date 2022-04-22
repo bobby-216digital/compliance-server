@@ -444,7 +444,7 @@ app.post('/contact', function(req, res) {
       from_name: "a11y.Radar",
       from_email: "info@a11yradar.com",
       to: contacts,
-      html: `Request from: ${req.body.url}<br/>Request type: ${req.body.type}<br/>Contact email: ${req.body.email}<br/>Notes: ${req.body.notes}`
+      html: `Request from: ${req.body.url}<br/>Request type: ${req.body.type}<br/>Contact email: ${req.body.email}<br/>Phone number: ${req.body.phone}<br />Notes: ${req.body.notes}`
     } });
     console.log(response);
   };
