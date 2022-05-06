@@ -268,6 +268,7 @@ app.post('/new', function(req, res) {
                 contacts: "` + req.body.contacts + `",
                 thresholda: "` + req.body.thresholda + `",
                 thresholdaa: "` + req.body.thresholdaa + `",
+                newscan: true,
                 sortsite: []
               }
             ]) {
