@@ -207,7 +207,7 @@ app.get('/sortsite', function (req, res) {
             };
             result.map((x) => {
                 if (x.sortsite[0]) {
-                    if (x.sortsite[0].date < (now - (x.freq * day))) {
+                    if (x.sortsite[0].date < (now - (x.freq * day)) || x.newScan == true) {
                         returnObj.urls.push(x.url);
                     } 
                 } else {
@@ -392,6 +392,12 @@ app.post('/scan', function(req, res) {
                   date
                   }
               }
+
+              updateSite(input: {filter: {url: {allofterms: "` + req.body.site + `}}, set: {newscan: false}}) {
+                  site {
+                    newscan
+                  }
+                }
               }`
 
           doFetch(query, res, true, obj)
