@@ -394,7 +394,9 @@ app.post('/scan', function(req, res) {
               }
 
               
-                updateSite(input: {filter: {url: {eq: "` + req.body.site + `"}}, set: {newscan: false}})
+              updateSite(input: {filter: {url: {eq: "` + req.body.site + `"}}, set: {newscan: false}}) {
+                numUids
+              }
               
               }`
 
