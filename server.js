@@ -395,7 +395,7 @@ app.post('/scan', function(req, res) {
 
               updateSite(input: {filter: {url: {allofterms: "` + req.body.site + `}}, set: {newscan: false}}) {
                   site {
-                    newscan
+                     newscan
                   }
                 }
               }`
