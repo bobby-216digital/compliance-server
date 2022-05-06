@@ -472,6 +472,17 @@ app.post('/newscan', function(req, res) {
   doFetch(query, res);
 })
 
+app.post('/addlighthouse', function(req, res) {
+  let query = `mutation MyMutation {
+    addLighthouseScan(input: {date: "` + Date.now() + `", score: ` + req.body.score + `, site: {url: "` + req.body.url + `"}})
+  }
+  `
+
+  console.log(query);
+
+  doFetch(query, res);
+})
+
 function onboard(slug, url, siteContacts) {
   let contacts = [];
   siteContacts.split(", ").map((x) => {
