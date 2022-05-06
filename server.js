@@ -230,6 +230,8 @@ app.get('/sites', function (req, res) {
         freq
         url
         slug
+        newscan
+        sortsite
       }
     }
   `
