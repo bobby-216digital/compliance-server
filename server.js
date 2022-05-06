@@ -474,7 +474,9 @@ app.post('/newscan', function(req, res) {
 
 app.post('/addlighthouse', function(req, res) {
   let query = `mutation MyMutation {
-    addLighthouseScan(input: {date: "` + Date.now() + `", score: ` + req.body.score + `, site: {url: "` + req.body.url + `"}})
+    addLighthouseScan(input: {date: "` + Date.now() + `", score: ` + req.body.score + `, site: {url: "` + req.body.url + `"}}) {
+      numUids
+    }
   }
   `
 
