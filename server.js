@@ -207,7 +207,7 @@ app.get('/sortsite', function (req, res) {
             };
             result.map((x) => {
                 if (x.sortsite[0]) {
-                    if (x.sortsite[0].date < (now - (x.freq * day)) || x.newScan == true) {
+                    if (x.sortsite[0].date < (now - (x.freq * day)) || x.newscan == true) {
                         returnObj.urls.push(x.url);
                     } 
                 } else {
