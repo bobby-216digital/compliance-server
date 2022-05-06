@@ -393,11 +393,9 @@ app.post('/scan', function(req, res) {
                   }
               }
 
-              updateSite(input: {filter: {url: {allofterms: "` + req.body.site + `"}}, set: {newscan: false}}) {
-                  site {
-                     newscan
-                  } 
-                }
+              mutation MyMutation {
+                updateSite(input: {filter: {url: {eq: "` + req.body.site + `"}}, set: {newscan: false}})
+              }
               }`
 
           doFetch(query, res, true, obj)
