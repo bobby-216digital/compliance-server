@@ -259,7 +259,10 @@ app.get('/delete/:slug', function (req, res) {
   let slug = req.params.slug;
   const query = `
   mutation MyMutation {
-    deleteSite(filter: {slug: {allofterms: "` + slug + `"}})
+    deleteSite(filter: {slug: {allofterms: "` + slug + `"}}) {
+      msg
+      numUids
+    }
   }
   `
 
