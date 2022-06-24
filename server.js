@@ -262,7 +262,9 @@ app.get('/delete/:slug', function (req, res) {
     deleteSite(filter: {slug: {allofterms: "` + slug + `"}})
   }
   `
-}
+
+  doFetch(query, res)
+})
 
 //onboard a site
 
