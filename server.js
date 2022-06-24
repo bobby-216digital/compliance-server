@@ -253,6 +253,15 @@ app.get('/sites', function (req, res) {
       })
 })
 
+//delete a site
+app.get('/delete/:slug', function (req, res) {
+  let slug = req.params.slug;
+  const query = `
+  mutation MyMutation {
+    deleteSite(filter: {slug: {allofterms: "` + slug + `"}})
+  }
+  `
+}
 
 //onboard a site
 
@@ -512,7 +521,7 @@ function checkThresholds(siteData, errorCounts) {
     erroraa: ""
   }
 
-  if (siteData.thresholda - 3 <= errorCounts[0] || siteData.thresholdaa - 3 <= errorCounts[1]) {
+  if (siteData.thresholda - 3 <= errorCounts[0] || siteData.thresholdaa - 1 <= errorCounts[1]) {
     text = {
       title: "Attention Required",
       textone: "The WCAG 2.1 AA error count on " + siteData.url + " is approaching your risk tolerance threshold.",
