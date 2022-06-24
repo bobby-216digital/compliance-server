@@ -207,7 +207,7 @@ app.get('/sortsite', function (req, res) {
             };
             result.map((x) => {
                 if (x.sortsite[0]) {
-                    if (x.sortsite[0].date < (now - (x.freq * day))) {
+                    if (x.sortsite[0].date < (now - (x.freq * day)) || x.newscan == true) {
                         returnObj.urls.push(x.url);
                     } 
                 } else {
@@ -230,6 +230,7 @@ app.get('/sites', function (req, res) {
         freq
         url
         slug
+        newscan
       }
     }
   `
@@ -276,6 +277,7 @@ app.post('/new', function(req, res) {
                 contacts: "` + req.body.contacts + `",
                 thresholda: "` + req.body.thresholda + `",
                 thresholdaa: "` + req.body.thresholdaa + `",
+                newscan: true,
                 sortsite: []
               }
             ]) {
@@ -401,6 +403,12 @@ app.post('/scan', function(req, res) {
                   date
                   }
               }
+
+              
+              updateSite(input: {filter: {url: {eq: "` + req.body.site + `"}}, set: {newscan: false}}) {
+                numUids
+              }
+              
               }`
 
           doFetch(query, res, true, obj)
@@ -465,6 +473,19 @@ app.post('/contact', function(req, res) {
 app.post('/newscan', function(req, res) {
   let query = `mutation MyMutation {
     updateSite(input: {filter: {url: {eq: "` + req.body.url + `"}}, set: {newscan: true}}) {
+      numUids
+    }
+  }
+  `
+
+  console.log(query);
+
+  doFetch(query, res);
+})
+
+app.post('/addlighthouse', function(req, res) {
+  let query = `mutation MyMutation {
+    addLighthouseScan(input: {date: "` + Date.now() + `", score: ` + req.body.score + `, site: {url: "` + req.body.url + `"}}) {
       numUids
     }
   }
