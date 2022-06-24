@@ -636,6 +636,7 @@ function checkThresholds(siteData, errorCounts) {
 //interact with GQL
 
 function doFetch (query, res, check, obj) {
+    console.log(query);
      //perform the HTTP request
      fetch('https://patient-hill.us-west-2.aws.cloud.dgraph.io/graphql', {
         method: 'POST',
