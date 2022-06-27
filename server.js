@@ -206,13 +206,16 @@ app.get('/sortsite', function (req, res) {
                 urls: []
             };
             result.map((x) => {
-                if (x.sortsite[0]) {
+              if (x) {
+                 if (x.sortsite[0]) {
                     if (x.sortsite[0].date < (now - (x.freq * day)) || x.newscan == true) {
                         returnObj.urls.push(x.url);
                     } 
                 } else {
                     returnObj.urls.push(x.url);
                 }
+              }
+               
                 
             })
             res.send(returnObj)
