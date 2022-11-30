@@ -304,13 +304,19 @@ app.post('/new', function(req, res) {
 
 app.post('/edit/:slug', function (req, res) {
   const query = `mutation EditSite {
-    updateSite(input: {filter: {slug: {allofterms: "${req.body.slug}"}}, set: {
-    contacts: "${req.body.contacts}", 
-    freq: ${req.body.freq}, 
-    premium: ${req.body.premium}, 
-    slug: "${req.body.slug}", 
-    thresholda: "${req.body.thresholda}", 
-    thresholdaa: "${req.body.thresholdaa}"}}) {
+    updateSite(input: {filter: {slug: {allofterms: "${req.body.slug}"}}, 
+    remove: {
+      contacts: ${req.body.oldcontacts}
+    },
+    set: {
+      contacts: "${req.body.contacts}", 
+      freq: ${req.body.freq}, 
+      premium: ${req.body.premium}, 
+      slug: "${req.body.slug}", 
+      thresholda: "${req.body.thresholda}", 
+      thresholdaa: "${req.body.thresholdaa}"}
+    }
+    ) {
       numUids
     }
   }`;
