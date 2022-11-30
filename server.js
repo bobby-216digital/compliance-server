@@ -302,9 +302,9 @@ app.post('/new', function(req, res) {
     doFetch(query, res);
 })
 
-app.post('/edit/:url', function (req, res) {
+app.post('/edit/:slug', function (req, res) {
   const query = `mutation EditSite {
-    updateSite(input: {filter: {url: {eq: "${req.body.url}"}}, set: {
+    updateSite(input: {filter: {slug: {eq: "${req.body.slug}"}}, set: {
     contacts: "${req.body.contacts}", 
     freq: ${req.body.freq}, 
     premium: ${req.body.premium}, 
