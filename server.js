@@ -150,6 +150,7 @@ app.get('/site/:slug', function (req, res) {
           thresholdaa
           passcode
           contacts
+          premium
           lighthouse {
             score
           }
@@ -286,7 +287,8 @@ app.post('/new', function(req, res) {
                 thresholda: "` + req.body.thresholda + `",
                 thresholdaa: "` + req.body.thresholdaa + `",
                 newscan: true,
-                sortsite: []
+                sortsite: [],
+                premium: ${req.body.premium}
               }
             ]) {
               numUids
@@ -298,6 +300,20 @@ app.post('/new', function(req, res) {
           
     onboard(req.body.slug, req.body.url, req.body.contacts)
     doFetch(query, res);
+})
+
+app.post('/edit/:url', function (req, res) {
+  const query = `mutation EditSite {
+    updateSite(input: {filter: {url: {eq: "${req.body.url}"}}, set: {
+    contacts: "${req.body.contacts}", 
+    freq: ${req.body.freq}, 
+    premium: ${req.body.premiun}, 
+    slug: ${req.body.slug}, 
+    thresholda: ${req.body.thresholda}, 
+    thresholdaa: ${req.body.thresholdaa}}})
+  }`;
+
+  doFetch(query, res);
 })
 
 app.post('/auth', function(req, res) {
