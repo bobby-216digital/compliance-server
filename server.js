@@ -235,6 +235,7 @@ app.get('/sites', function (req, res) {
         url
         slug
         newscan
+        overthreshold
       }
     }
   `
