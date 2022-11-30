@@ -594,6 +594,26 @@ function checkThresholds(siteData, errorCounts) {
       errora: (siteData.thresholda <= errorCounts[0] ? "⚠️" : ""),
       erroraa: (siteData.thresholdaa <= errorCounts[1] ? "⚠️" : "")
     }
+
+    const query = `
+      mutation MyMutation {
+        updateSite(input: {filter: {slug: {allofterms: "${siteData.slug}"}}, set: {overthreshold: true}}) {
+          numUids
+        }
+      }
+      `;
+
+    doFetch(query)
+  } else {
+    const query = `
+      mutation MyMutation {
+        updateSite(input: {filter: {slug: {allofterms: "${siteData.slug}"}}, set: {overthreshold: false}}) {
+          numUids
+        }
+      }
+      `;
+
+    doFetch(query)
   }
 
   let contacts = [];
