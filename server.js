@@ -307,7 +307,7 @@ app.post('/edit/:url', function (req, res) {
     updateSite(input: {filter: {url: {eq: "${req.body.url}"}}, set: {
     contacts: "${req.body.contacts}", 
     freq: ${req.body.freq}, 
-    premium: ${req.body.premiun}, 
+    premium: ${req.body.premium}, 
     slug: ${req.body.slug}, 
     thresholda: ${req.body.thresholda}, 
     thresholdaa: ${req.body.thresholdaa}}})
