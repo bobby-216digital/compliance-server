@@ -206,19 +206,20 @@ app.get('/sortsite', function (req, res) {
             let returnObj = {
                 urls: []
             };
+            let ongoingUrls = [];
+            let qaUrls = [];
             result.map((x) => {
               if (x) {
                  if (!x.sortsite[0]) {
-                    returnObj.urls.push(x.url);
+                    qaUrls.push(x.url);
                 } else {
                     if (x.sortsite[0].date < (now - (x.freq * day)) || x.newscan == true) {
-                        returnObj.urls.push(x.url);
+                        ongoingUrls.urls.push(x.url);
                     } 
                 }
               }
-               
-                
             })
+            returnObj.urls = [...qaUrls, ...ongoingUrls];
             res.send(returnObj)
         })
         .catch(error => {
