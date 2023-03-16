@@ -214,7 +214,7 @@ app.get('/sortsite', function (req, res) {
                     qaUrls.push(x.url);
                 } else {
                     if (x.sortsite[0].date < (now - (x.freq * day)) || x.newscan == true) {
-                        ongoingUrls.urls.push(x.url);
+                        ongoingUrls.push(x.url);
                     } 
                 }
               }
