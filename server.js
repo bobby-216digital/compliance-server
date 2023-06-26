@@ -100,7 +100,7 @@ function waveScan (url) {
 
               doFetch(query, false);
 
-              if (scan.categories.error) {
+              if (scan.categories) {
 
                 setTimeout(() => {
                   let queryString = ``;
