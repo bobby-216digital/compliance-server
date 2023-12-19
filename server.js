@@ -353,7 +353,7 @@ app.post('/scan', async function(req, res) {
         console.log(file);
 
         await csv()
-        .fromFile(file)
+        .fromString(file)
         .then((jsonObj)=>{
             //this is async, have to call function to pass data
             createQuery(jsonObj);
