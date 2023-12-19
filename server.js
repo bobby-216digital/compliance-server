@@ -350,11 +350,14 @@ app.post('/scan', function(req, res) {
     if (req.files) {
         file = req.files.scanData;
 
+        console.log(file);
+
         csv()
         .fromFile(file.tempFilePath)
         .then((jsonObj)=>{
             //this is async, have to call function to pass data
             createQuery(jsonObj);
+            console.log(jsonObj);
             res.status(200)
         })
         .catch(error => {
