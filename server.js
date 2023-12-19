@@ -347,9 +347,8 @@ app.post('/auth', function(req, res) {
 //add a scan
 
 app.post('/scan', async function(req, res) {
-  res.status(200);
-    if (req.files) {
-        file = req.files.scanData;
+    if (req.body.scanData) {
+        file = req.body.scanData;
 
         console.log(file);
 
@@ -358,7 +357,6 @@ app.post('/scan', async function(req, res) {
         .then((jsonObj)=>{
             //this is async, have to call function to pass data
             createQuery(jsonObj);
-            console.log(jsonObj);
         })
         .catch(error => {
             res.status(400);
