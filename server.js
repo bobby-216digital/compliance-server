@@ -347,6 +347,7 @@ app.post('/auth', function(req, res) {
 //add a scan
 
 app.post('/scan', function(req, res) {
+    res.status(200)
     console.log(req)
     if (req.files) {
         file = req.files.scanData;
