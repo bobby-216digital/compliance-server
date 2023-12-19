@@ -355,6 +355,7 @@ app.post('/scan', function(req, res) {
         .then((jsonObj)=>{
             //this is async, have to call function to pass data
             createQuery(jsonObj);
+            res.status(200)
         })
         .catch(error => {
             res.status(400);
@@ -446,7 +447,7 @@ app.post('/scan', function(req, res) {
               
               }`
 
-          doFetch(query, res, true, obj)
+          doFetch(query, false, true, obj)
 
           // query = `mutation MyMutation {
           //   updateSite(input: {filter: {url: {allofterms: "` + req.body.site + `}}, set: {newscan: false}}) {
