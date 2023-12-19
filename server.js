@@ -451,7 +451,7 @@ app.post('/scan', async function(req, res) {
               
               }`
 
-          doFetch(query, false, true, obj)
+          doFetch(query, res, true, obj)
 
           // query = `mutation MyMutation {
           //   updateSite(input: {filter: {url: {allofterms: "` + req.body.site + `}}, set: {newscan: false}}) {
