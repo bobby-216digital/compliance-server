@@ -387,9 +387,9 @@ app.post('/scan', async function(req, res) {
                     cleanedLineArray = cleanedLineArray.substring(0, cleanedLineArray.length - 2)
 
                     let level;
-                    if (scanJson[i]["Guidelines"].includes(" A ")) {
+                    if (scanJson[i]["Priority"] == "1") {
                       level = "a"
-                    } else if (scanJson[i]["Guidelines"].includes(" AA ")) {
+                    } else if (scanJson[i]["Priority"] == "2") {
                       level = "aa"
                     } else (
                       level = "aaa"
