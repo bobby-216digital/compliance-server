@@ -350,8 +350,6 @@ app.post('/scan', async function(req, res) {
     if (req.body.scanData) {
         file = req.body.scanData;
 
-        console.log(file);
-
         await csv()
         .fromString(file)
         .then((jsonObj)=>{
