@@ -103,35 +103,37 @@ function waveScan (url) {
                 setTimeout(() => {
                   let queryString = ``;
   
-                  let items = scan.categories.error.items;
+                  if (scan.categories) {
+                    let items = scan.categories.error.items;
   
-                  for (x in items) {
-  
-                      queryString += `
-                          addWaveIssue(
-                              input:
-                              [
-                                  {
-                                      description: "` + items[x].description + `"
-                                      priority: 1
-                                      count: ` + items[x].count + `
-                                      scan: {
-                                          date: ` + date + `
-                                      }
-                                  }
-                              ]
-                          ) {
-                              numUids
-                          }
-                          `
+                    for (x in items) {
+    
+                        queryString += `
+                            addWaveIssue(
+                                input:
+                                [
+                                    {
+                                        description: "` + items[x].description + `"
+                                        priority: 1
+                                        count: ` + items[x].count + `
+                                        scan: {
+                                            date: ` + date + `
+                                        }
+                                    }
+                                ]
+                            ) {
+                                numUids
+                            }
+                            `
+                    }
+    
+                    query = `
+                        mutation NewWaveIssue {
+                            ` + queryString + `
+                        }
+                    `
+                    doFetch(query, false)
                   }
-  
-                  query = `
-                      mutation NewWaveIssue {
-                          ` + queryString + `
-                      }
-                  `
-                  doFetch(query, false)
                 }, 3000)
               
         })
