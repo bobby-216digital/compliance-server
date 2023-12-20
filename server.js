@@ -432,6 +432,7 @@ app.post('/scan', async function(req, res) {
                   site {
                       url
                       slug
+                      freq
                       thresholda
                       thresholdaa
                       contacts
@@ -713,8 +714,8 @@ function doFetch (query, res, check, obj) {
             }
             if (check) {
               console.log(data.data.addSortsiteScan)
-             // let siteData = data.data.addSortsiteScan.sortsiteScan[0].site;
-             // checkThresholds(siteData, [Object.keys(obj['a']).length, Object.keys(obj['aa']).length, Object.keys(obj['aaa']).length])
+              let siteData = data.data.addSortsiteScan.sortsiteScan[0].site;
+              checkThresholds(siteData, [Object.keys(obj['a']).length, Object.keys(obj['aa']).length, Object.keys(obj['aaa']).length])
             }
            
         })
